@@ -13,7 +13,7 @@ jobs:
         - travis/containerCreation.sh
 
     - stage: release
-      if: env(TRAVIS_TAG) =~ ^v[0-9.]*$
+      if: tag =~ ^v[0-9.]*$
       deploy:
         provider: script
         script: travis/release.sh
