@@ -19,7 +19,7 @@ REPO_NAME=`basename $REPO_LOCAL_PATH`
 # Create a Docker image and tag it as 'travis_<build number>'
 buildTag=travis_$TRAVIS_BUILD_NUMBER # We use a temporary build number for tagging, since this is a transient artefact
 
-docker build -t eoepca/${REPO_NAME} .
+docker build -t eoepca/${REPO_NAME} ..
 docker tag eoepca/${REPO_NAME} eoepca/${REPO_NAME}:$buildTag # Tags container in EOEPCA repository with buildTag
 
 if [ -n "${DOCKER_USERNAME}" -a -n "${DOCKER_PASSWORD}" ]
