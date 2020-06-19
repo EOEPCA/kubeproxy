@@ -11,12 +11,12 @@ jobs:
       script: travis/containerCreation.sh
 
     - stage: release
+      if: env(TRAVIS_TAG) =~ ^v[0-9.]*$
       deploy:
         provider: script
         script: travis/release.sh
         on:
           tags: true
-          condition: env(TRAVIS_TAG) =~ ^v[0-9.]*$
       after_deploy:
         - travis/delete-dockerhub-images.sh
 
