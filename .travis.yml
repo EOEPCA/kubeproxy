@@ -7,13 +7,19 @@ services:
 
 jobs:
   include:
-    - stage: container creation and publishing
-      script: travis/containerCreation.sh
+    - stage: container creation
+      script:
+        - travis/containerCreation.sh
 
-    - stage: release
-      if: branch = master AND NOT type IN (pull_request)
-      script: travis/release.sh
-      post_script: travis/delete-dockerhub-images.sh
+    - stage: release and tag on DockerHub
+      if: tag =~ ^v[0-9.]*$
+      deploy:
+        provider: script
+        script: travis/release.sh
+        on:
+          tags: true
+      after_deploy:
+        - travis/delete-dockerhub-images.sh
 
 import:
   - docs/.travis.yml
