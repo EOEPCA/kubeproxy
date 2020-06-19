@@ -7,12 +7,11 @@ services:
 
 jobs:
   include:
-    - stage: container creation and publishing
+    - stage: container creation
       script:
-        - echo "The value of TRAVIS_TAG is $TRAVIS_TAG"
         - travis/containerCreation.sh
 
-    - stage: release
+    - stage: release and tag on DockerHub
       if: tag =~ ^v[0-9.]*$
       deploy:
         provider: script

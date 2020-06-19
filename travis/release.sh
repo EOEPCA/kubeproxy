@@ -25,8 +25,8 @@ then
   docker pull eoepca/${REPO_NAME}:${buildTag}  # have to pull locally in order to tag as a release
 
   # Tag and push as a Release following the SemVer approach, e.g. 0.1.1-Alpha
-  docker tag eoepca/${REPO_NAME}:${buildTag} eoepca/${REPO_NAME}:release_${TRAVIS_TAG} # This recovers the GitHub release/tag number
-  docker push eoepca/${REPO_NAME}:release_${TRAVIS_TAG}
+  docker tag eoepca/${REPO_NAME}:${buildTag} eoepca/${REPO_NAME}:${TRAVIS_TAG} # This recovers the GitHub release/tag number
+  docker push eoepca/${REPO_NAME}:${TRAVIS_TAG}
 
   # Tag and push as `latest`
   docker tag eoepca/${REPO_NAME}:${buildTag} eoepca/${REPO_NAME}:latest
