@@ -8,7 +8,9 @@ services:
 jobs:
   include:
     - stage: container creation and publishing
-      script: travis/containerCreation.sh
+      script:
+        - echo "The value of TRAVIS_TAG is $TRAVIS_TAG"
+        - travis/containerCreation.sh
 
     - stage: release
       if: env(TRAVIS_TAG) =~ ^v[0-9.]*$
