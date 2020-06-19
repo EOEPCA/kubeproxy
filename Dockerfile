@@ -1,11 +1,9 @@
-# Base container
-FROM openjdk:11-jre-slim
+FROM alpine
 
-# First task: insert Fat-JAR package within the container
-COPY build/libs/template-service.jar /jar/
+RUN apk add curl
 
-# Declare and expose service listening port
-EXPOSE 7000/tcp
+RUN curl -sO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 
-# Declare entrypoint of that exposed service. In this case, running the inserted JAR package.
-ENTRYPOINT ["java", "-jar", "/jar/template-service.jar"]
+RUN chmod +x kubectl
+
+ENTRYPOINT [ "./kubectl", "proxy", "--port=8080" ]
